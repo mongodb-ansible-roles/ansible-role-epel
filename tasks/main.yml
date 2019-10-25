@@ -1,4 +1,10 @@
 ---
-- name: Install EPEL
-  yum:
-    name: "{{ epel_url }}"
+- include_tasks: setup-RedHat8.yml
+  when:
+    - ansible_distribution == "RedHat"
+    - ansible_distribution_major_version == "8"
+
+- include_tasks: setup-nonRedHat8.yml
+  when:
+    - ansible_distribution != "RedHat"
+    - ansible_distribution_major_version != "8"
